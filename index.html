@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Grade Calculator</title>
+    <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Righteous', cursive;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #4facfe;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #4facfe;
+            border-radius: 8px;
+            outline: none;
+            font-size: 16px;
+        }
+
+        .form-button {
+            width: 100%;
+            padding: 12px;
+            background: #4facfe;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .form-button:hover {
+            background: #00c6ff;
+        }
+
+        .showdata {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Grade Calculator</h1>
+        <div class="screen-body-item">
+            <div class="app">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Chemistry Marks" id="chemistry">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Hindi Marks" id="hindi">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Maths Marks" id="maths">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Physics Marks" id="phy">
+                </div>
+                <div>
+                    <input type="button" value="Show Percentage & Grade" class="form-button" onclick="calculate()">
+                </div>
+            </div>
+        </div>
+        <div class="form-group showdata">
+            <p id="showdata"></p>
+        </div>
+    </div>
+
+    <script>
+        const calculate = () => {
+            let chemistry = document.querySelector("#chemistry").value;
+            let hindi = document.querySelector("#hindi").value;
+            let maths = document.querySelector("#maths").value;
+            let phy = document.querySelector("#phy").value;
+            let grades = "";
+
+            let totalgrades = parseFloat(chemistry) + parseFloat(hindi) + parseFloat(maths) + parseFloat(phy);
+            let percentage = (totalgrades / 400) * 100;
+
+            if (percentage <= 100 && percentage >= 80) {
+                grades = "A";
+            } else if (percentage < 80 && percentage >= 60) {
+                grades = "B";
+            } else if (percentage < 60 && percentage >= 40) {
+                grades = "C";
+            } else {
+                grades = "F";
+            }
+
+            if (chemistry === "" || hindi === "" || maths === "" || phy === "") {
+                document.querySelector("#showdata").innerHTML = "❗ Please enter all the fields.";
+            } else {
+                if (percentage >= 39.5) {
+                    document.querySelector("#showdata").innerHTML =
+                        `🎓 Out of 400, your total is <b>${totalgrades}</b> and percentage is <b>${percentage.toFixed(2)}%</b>.<br>
+                         Your grade is <b>${grades}</b>. 🎉 You <b>Pass</b>!`;
+                } else {
+                    document.querySelector("#showdata").innerHTML =
+                        `🎓 Out of 400, your total is <b>${totalgrades}</b> and percentage is <b>${percentage.toFixed(2)}%</b>.<br>
+                         Your grade is <b>${grades}</b>. 😔 You <b>Fail</b>.`;
+                }
+            }
+        };
+    </script>
+</body>
+
+</html>
